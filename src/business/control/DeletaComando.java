@@ -31,6 +31,7 @@ public class DeletaComando implements ComandoIF {
 		temp = catraca.remove(login);
 
 		try {
+			Arquivo.saveMem(catraca2);
 			Arquivo.save(catraca); // Salva arquivo
 		} catch (InfraException ex) {
 			catraca.put(login, temp); // se der erro, recoloca na memoria

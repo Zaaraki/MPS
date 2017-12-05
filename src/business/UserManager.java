@@ -143,9 +143,10 @@ public class UserManager {
 	}
 	
 	public void Undo() throws MementoException, InfraException {
-		catraca = mem.getUltimoEstadoSalvo().getMapa();
+		//catraca = mem.getUltimoEstadoSalvo().getMapa();
 		
 		try {
+			catraca = Arquivo.loadMemento();
 			Arquivo.save(catraca); // Salva arquivo
 		} catch (InfraException ex) {
 			throw ex;

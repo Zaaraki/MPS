@@ -73,6 +73,7 @@ public class AdicionaComando implements ComandoIF {
 		catraca.put(login, u);
 
 		try {
+			Arquivo.saveMem(catraca2);
 			Arquivo.save(catraca); // Salva arquivo
 		} catch (InfraException ex) {
 			catraca.remove(login); // se der erro, exclui login

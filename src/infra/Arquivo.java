@@ -62,4 +62,38 @@ public class Arquivo implements Serializable {
 			throw new InfraException("Não foi possível completar o cadastro\nTente novamente mais tarde");
 		}
 	}
+	
+	public static HashMap<String, User> loadMemento() throws InfraException {
+		HashMap<String, User> u;
+		try {
+			readUsers = new FileInputStream("Memento.txt");
+			readObj = new ObjectInputStream(readUsers);
+			u = (HashMap<String, User>) readObj.readObject();
+			readUsers.close();
+			readObj.close();
+			return u;
+		} catch (FileNotFoundException ex) {
+			Logger.getLogger(Arquivo.class.getName()).log(Level.SEVERE, null, ex);
+			throw new InfraException("Não foi possível iniciar o sistema\nTente novamente mais tarde");
+		} catch (IOException | ClassNotFoundException ex) {
+			Logger.getLogger(Arquivo.class.getName()).log(Level.SEVERE, null, ex);
+			throw new InfraException("Não foi possível iniciar o sistema\nTente novamente mais tarde");
+		}
+	}
+
+	public static void saveMem(HashMap<String, User> u) throws InfraException {
+		try {
+			writeUsers = new FileOutputStream("Memento.txt");
+			writeObj = new ObjectOutputStream(writeUsers);
+			writeObj.writeObject(u);
+			writeUsers.close();
+			writeObj.close();
+		} catch (FileNotFoundException ex) {
+			Logger.getLogger(Arquivo.class.getName()).log(Level.SEVERE, null, ex);
+			throw new InfraException("Não foi possível completar o cadastro\nTente novamente mais tarde");
+		} catch (IOException ex) {
+			Logger.getLogger(Arquivo.class.getName()).log(Level.SEVERE, null, ex);
+			throw new InfraException("Não foi possível completar o cadastro\nTente novamente mais tarde");
+		}
+	}
 }
