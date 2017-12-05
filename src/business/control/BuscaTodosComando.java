@@ -10,19 +10,21 @@ public class BuscaTodosComando implements ComandoIF {
 
 	protected static HashMap<String, User> catraca = new HashMap<>();
 	
-	public BuscaTodosComando() {
+	public BuscaTodosComando(OrdenadorTemplate Ord) {
 		try {
-			catraca = Arquivo.load();
+			catraca = Ord.Ordenar(Arquivo.load());
 		}
 		catch(InfraException ex) {
 			
 		}
+		
 	}
 	@Override
 	public MemCaretaker execute(MemCaretaker mem) throws Exception {
+		
 		for (User cliente : catraca.values()) {
 
-			System.out.println(cliente);
+			System.out.println(cliente.toString());
 
 		}
 		return mem;

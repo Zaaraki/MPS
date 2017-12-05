@@ -2,7 +2,11 @@ package business.control;
 
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 import Exc.UserLoginException;
+import business.model.Fabrica;
+import business.model.FabricaUsuario;
 import business.model.User;
 import infra.Arquivo;
 import infra.InfraException;
@@ -11,20 +15,29 @@ public class AdicionaComando implements ComandoIF {
 	
 	String senha;
 	String login;
+	int idade;
+	int cpf;
+	Fabrica f;
 	protected static HashMap<String, User> catraca = new HashMap<>();
 	
-	public AdicionaComando(String login,String senha) {
+	public AdicionaComando(String login,String senha, int cpf , int idade) {
 		this.login = login;
 		this.senha = senha;
+		this.cpf = cpf;
+		this.idade= idade;
+		f = new FabricaUsuario();
 		try {
 			catraca = Arquivo.load();
+			
 		}
 		catch(InfraException ex) {
-			catraca = null;
+			catraca = new HashMap<>();
 		}
+		
 	}
 	@Override
 	public MemCaretaker execute(MemCaretaker mem) throws Exception {
+	
 		if (login.length() > 24)
 			throw new UserLoginException("Login excede 24 caracteres");
 
@@ -47,7 +60,16 @@ public class AdicionaComando implements ComandoIF {
 			throw new UserLoginException("Senha deve ter ao menos 2 numeros");
 		HashMap<String, User> catraca2 = (HashMap<String, User>) catraca.clone();
 		mem.AdicionarMemento(new MapaMemento(catraca2));
-		User u = new User(login, senha);
+		//idade = Integer.parseInt(JOptionPane.showInputDialog("Digite a idade: "));
+		//cpf = Integer.parseInt(JOptionPane.showInputDialog("Digite o cpf: "));
+		
+		User u = f.CriarUser();
+		u.setCpf(cpf);
+		System.out.println(cpf);
+		System.out.println(idade);
+		u.setIdade(idade);
+		u.setLogin(login);
+		u.setSenha(senha);
 		catraca.put(login, u);
 
 		try {

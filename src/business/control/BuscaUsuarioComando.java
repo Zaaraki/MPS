@@ -28,7 +28,8 @@ public class BuscaUsuarioComando implements ComandoIF {
 		for (User cliente : catraca.values()) {
 
 			if (cliente.getLogin().equals(user)) {
-				System.out.println(cliente);
+				System.out.println(cliente.toString());
+				
 				JOptionPane.showMessageDialog(null, cliente);
 				break;
 

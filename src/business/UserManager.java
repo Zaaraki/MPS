@@ -71,6 +71,8 @@ public class UserManager {
 		}
 	}
 
+	
+
 	public void buscaUsuario(String login) {
 
 		for (User cliente : catraca.values()) {
@@ -107,6 +109,7 @@ public class UserManager {
 			}
 
 		}
+
 
 	}
 
